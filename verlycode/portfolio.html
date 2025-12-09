@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portfolio — Student (Y2K Editing)</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --purple-1: #F0E7FF;
+      --purple-2: #CDB1FF;
+      --accent: #9B6BFF;
+      --neon: #6FF0FF;
+      --cream: #FFF7EA;
+      --white: #FFFFFF;
+      --muted: #5E5570;
+      --glass: rgba(255,255,255,0.55);
+      --shadow: 0 12px 40px rgba(92,63,153,0.12);
+      --radius: 18px;
+    }
+
+    /* reset */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui,Segoe UI,Roboto,Arial;
+      background:
+        radial-gradient(800px 400px at 10% 10%, rgba(155,107,255,0.06), transparent 12%),
+        radial-gradient(800px 400px at 95% 90%, rgba(111,240,255,0.03), transparent 10%),
+        linear-gradient(180deg,var(--white) 0%, #FBFAFF 100%);
+      color:#1a1430;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      overflow-y:auto;
+    }
+
+    /* subtle scanline overlay for Y2K vibe */
+    body::after{
+      content:"";
+      position:fixed;inset:0;pointer-events:none;
+      background-image:repeating-linear-gradient(rgba(255,255,255,0.02) 0 1px, transparent 1px 4px);
+      mix-blend-mode:overlay;opacity:0.9;
+    }
+
+    .container{
+      max-width:1100px;
+      margin:48px auto;
+      padding:32px;
+      position:relative;
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      margin-bottom:20px;
+      background:linear-gradient(90deg, rgba(255,255,255,0.6), rgba(255,255,255,0.2));
+      padding:10px 16px;border-radius:14px;
+      box-shadow:0 8px 28px rgba(120,80,200,0.06);
+      backdrop-filter: blur(6px);
+    }
+
+    .logo{
+      display:flex;align-items:center;gap:12px;
+    }
+    .brand-bubble{
+      width:56px;height:56px;border-radius:14px;
+      background:linear-gradient(135deg,var(--purple-2),var(--accent));
+      box-shadow:0 8px 28px rgba(147,98,255,0.18), inset 0 -6px 18px rgba(255,255,255,0.06);
+      display:grid;place-items:center;color:var(--white);font-weight:800;font-family:'Press Start 2P',monospace;
+      transform:skewX(-8deg) rotate(-6deg);
+    }
+    .brand-text{line-height:1}
+    .brand-text .title{font-weight:700}
+    .brand-text .sub{font-size:11px;color:var(--muted);margin-top:2px}
+
+    nav a{
+      margin-left:14px;text-decoration:none;color:var(--muted);
+      font-weight:700;font-size:13px;padding:8px 10px;border-radius:10px;
+    }
+    nav a:hover{color:var(--accent);transform:translateY(-2px)}
+    nav a.primary{
+      background:linear-gradient(90deg,var(--accent),var(--purple-2));
+      color:var(--white);padding:8px 12px;border-radius:12px;
+      box-shadow:0 10px 28px rgba(155,107,255,0.14);
+      margin-left:10px;font-weight:700;
+    }
+
+    /* Hero with Y2K stickers + editing overlays */
+    .hero{
+      display:grid;
+      grid-template-columns: 360px 1fr;
+      gap:28px;
+      align-items:start;
+      padding:26px;border-radius:18px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,250,245,0.6));
+      box-shadow:var(--shadow);
+      position:relative;overflow:visible;
+    }
+
+    /* floating sticker shapes */
+    .sticker{
+      position:absolute;
+      width:86px;height:86px;border-radius:18px;
+      display:grid;place-items:center;font-weight:800;color:white;font-family:'Press Start 2P',monospace;
+      box-shadow:0 18px 50px rgba(80,50,160,0.14);
+      transform:rotate(-12deg);
+      z-index:3;
+    }
+    .sticker.like{left:-18px;top:-30px;background:linear-gradient(135deg,#FF7AC6,#FFB3C6);border:3px solid rgba(255,255,255,0.6)}
+    .sticker.play{right:-26px;top:12px;background:linear-gradient(135deg,#6FF0FF,#9BF0FF);border:3px solid rgba(255,255,255,0.6);transform:rotate(8deg)}
+    .sticker.spark{left:40px;bottom:-36px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#FFEE9B,#FFD7FF);color:#4A2E6B}
+
+    .profile-card{
+      position:relative;
+      padding:22px;border-radius:16px;
+      background:linear-gradient(135deg,var(--white),var(--purple-1));
+      display:flex;flex-direction:column;align-items:center;gap:14px;
+      border:2px solid rgba(167,122,255,0.12);
+      box-shadow:0 12px 40px rgba(140,90,255,0.06), inset 0 2px 6px rgba(255,255,255,0.6);
+    }
+
+    .avatar{
+      width:164px;height:164px;border-radius:26px;
+      background:linear-gradient(135deg,var(--accent),var(--purple-2));
+      display:grid;place-items:center;color:white;font-size:44px;font-weight:800;
+      box-shadow:0 16px 40px rgba(161,99,255,0.18);
+      position:relative;overflow:hidden;border:3px solid rgba(255,255,255,0.12);
+    }
+    /* glossy glint */
+    .avatar::after{
+      content:"";
+      position:absolute;left:-40%;top:-30%;width:80%;height:80%;
+      background:linear-gradient(120deg,rgba(255,255,255,0.25),rgba(255,255,255,0.02));
+      transform:rotate(-25deg);
+      animation:glint 3s linear infinite;
+      mix-blend-mode:screen;pointer-events:none;
+    }
+    @keyframes glint{0%{transform:translateX(-30%) rotate(-25deg)}50%{transform:translateX(30%) rotate(-25deg)}100%{transform:translateX(-30%) rotate(-25deg)}}
+
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block;border-radius:20px}
+
+    .name{font-size:18px;font-weight:800;color:#2b1b3a;letter-spacing:0.2px}
+    .role{font-size:12px;color:var(--muted);font-weight:700}
+    .meta{display:flex;gap:8px;font-size:12px;color:var(--muted);margin-top:4px}
+    .meta span{background:var(--cream);padding:6px 10px;border-radius:999px;font-weight:700;font-size:12px}
+
+    .cta{display:flex;gap:10px;margin-top:6px;}
+    .btn{
+      padding:10px 14px;border-radius:12px;font-weight:800;
+      border:none;cursor:pointer;letter-spacing:0.6px;
+      transition:transform .18s ease,box-shadow .18s ease,filter .18s;
+      font-size:13px;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn-outline{
+      background:linear-gradient(180deg,rgba(255,255,255,0.9),rgba(255,255,255,0.6));
+      border:1px solid rgba(155,107,255,0.18);color:var(--accent);backdrop-filter:blur(4px);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,0.6);
+    }
+    .btn-primary{
+      background:linear-gradient(90deg,var(--neon),var(--accent));
+      color:#20132b;text-shadow:0 1px 0 rgba(255,255,255,0.08);
+      box-shadow:0 12px 30px rgba(107,82,255,0.12);
+      position:relative;overflow:hidden;
+    }
+    .btn-primary::after{
+      content:"";
+      position:absolute;left:-60%;top:0;width:40%;height:100%;
+      background:linear-gradient(120deg,rgba(255,255,255,0.25),transparent);
+      transform:skewX(-20deg);opacity:0.8;
+      animation:btnglow 3s linear infinite;
+      pointer-events:none;
+    }
+    @keyframes btnglow{0%{left:-60%}50%{left:120%}100%{left:-60%}}
+
+    /* Right column content: editing card */
+    .intro{
+      padding:20px;border-radius:14px;border:1px solid rgba(220,210,255,0.6);
+      background:linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,249,244,0.65));
+      box-shadow:0 12px 40px rgba(130,80,220,0.04);
+      position:relative;overflow:visible;
+    }
+    .intro h1{margin:0;font-size:26px;color:#2b1b3a;font-family:'Press Start 2P',monospace;letter-spacing:-0.6px}
+    .intro p{color:var(--muted);margin-top:10px;font-size:14px}
+    .tags{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+    .tag{
+      background:linear-gradient(180deg,var(--white),var(--purple-1));
+      color:var(--accent);padding:8px 12px;border-radius:999px;font-weight:800;font-size:12px;
+      border:1px solid rgba(155,107,255,0.08);box-shadow:0 8px 22px rgba(155,107,255,0.06)
+    }
+
+    /* Projects grid with "card editor" panels */
+    .grid{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .card{
+      background:linear-gradient(180deg,var(--cream),rgba(255,255,255,0.9));padding:14px;border-radius:14px;
+      border:1px solid rgba(0,0,0,0.03);position:relative;overflow:hidden;
+      transition:transform .18s,box-shadow .18s;
+    }
+    .card::before{
+      content:"EDIT";position:absolute;top:8px;right:8px;font-size:10px;font-weight:800;
+      color:rgba(50,20,90,0.12);transform:rotate(18deg);font-family:'Press Start 2P',monospace;
+    }
+    .card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(92,63,153,0.12)}
+    .project-title{font-weight:800;color:#342641;margin-bottom:8px;font-family:'Press Start 2P',monospace;font-size:12px}
+    .project-desc{font-size:13px;color:var(--muted);margin-bottom:10px}
+    .project-meta{display:flex;justify-content:space-between;align-items:center}
+
+    /* Skills bars with neon fill */
+    .skills{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+    .skill{display:flex;align-items:center;gap:10px}
+    .skill strong{width:80px;font-weight:700;font-size:12px;color:#3a2740}
+    .skill .bar{flex:1;height:10px;background:rgba(0,0,0,0.05);border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,0.2)}
+    .skill .bar > i{
+      display:block;height:100%;background:linear-gradient(90deg,var(--neon),var(--accent));
+      width:0%;border-radius:999px;transition:width .9s cubic-bezier(.2,.9,.2,1);
+      box-shadow:0 6px 18px rgba(111,240,255,0.08);
+    }
+
+    /* contact */
+    .contact{
+      margin-top:22px;padding:16px;border-radius:12px;background:linear-gradient(180deg,var(--white),var(--purple-1));
+      border:1px solid rgba(167,122,255,0.08);display:flex;align-items:center;justify-content:space-between;gap:12px;
+    }
+    .contact .cta-links{display:flex;gap:10px}
+
+    footer{text-align:center;color:var(--muted);font-size:13px;margin-top:28px}
+
+    /* responsive */
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr;gap:18px}
+      .avatar{width:120px;height:120px;border-radius:18px}
+      .sticker{display:none}
+      header{padding:10px}
+    }
+
+    /* small utility */
+    a {cursor:pointer}
+    /* custom scrollbar (Windows-friendly) */
+    ::-webkit-scrollbar{width:10px;height:10px}
+    ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--purple-2),var(--accent));border-radius:999px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo" aria-hidden="true">
+        <div class="brand-bubble">VS</div>
+        <div class="brand-text">
+          <div class="title">Verly Student</div>
+          <div class="sub">Portfolio • Y2K Editing</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact" class="primary">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero" aria-label="Profile hero">
+      <!-- Y2K stickers -->
+      <div class="sticker like">♥</div>
+      <div class="sticker play">▶</div>
+      <div class="sticker spark">✦</div>
+
+      <aside class="profile-card" aria-label="Profile card">
+        <div class="avatar" title="Foto profil">
+          <!-- replace with actual image path if available -->
+          <img src="avatar.jpg" alt="Verly" onerror="this.style.display='none';this.parentNode.querySelector('span').style.display='block'">
+          <span style="display:block">VR</span>
+        </div>
+
+        <div class="name">Verly Nurhadi</div>
+        <div class="role">Mahasiswa Teknik Informatika — UI/UX & Web</div>
+
+        <div class="meta">
+          <span>Universitas XYZ</span>
+          <span>2024 — Sekarang</span>
+        </div>
+
+        <div class="cta">
+          <button class="btn btn-primary" onclick="downloadCV()">DOWNLOAD CV</button>
+          <button class="btn btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">CONTACT</button>
+        </div>
+      </aside>
+
+      <div class="intro">
+        <h1>HI — VERLY</h1>
+        <p>Saya mengedit antarmuka dengan gaya Y2K: glossy, neon, dan ringkas. Fokus pada front-end, microinteractions, dan pengalaman yang eye-catching namun mudah digunakan.</p>
+
+        <div class="tags">
+          <div class="tag">UI • Motion</div>
+          <div class="tag">Web Dev</div>
+          <div class="tag">React</div>
+          <div class="tag">Figma</div>
+          <div class="tag">Editing</div>
+        </div>
+
+        <div class="grid" id="projects" aria-label="Proyek">
+          <div class="card">
+            <div class="project-title">Aplikasi Presensi</div>
+            <div class="project-desc">Presensi kampus dengan UI editing untuk admin & integrasi QR.</div>
+            <div class="project-meta">
+              <small style="color:var(--muted)">HTML • JS • Firebase</small>
+              <small style="color:var(--accent);font-weight:800">Demo</small>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="project-title">Portfolio Interaktif</div>
+            <div class="project-desc">Portofolio dengan efek Y2K, microinteractions & mode presentasi.</div>
+            <div class="project-meta">
+              <small style="color:var(--muted)">React • CSS</small>
+              <small style="color:var(--accent);font-weight:800">Open</small>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="project-title">Landing Kampus</div>
+            <div class="project-desc">Landing responsif untuk event, dengan visual editing sederhana.</div>
+            <div class="project-meta">
+              <small style="color:var(--muted)">HTML • Bootstrap</small>
+              <small style="color:var(--accent);font-weight:800">Live</small>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:24px;margin-top:16px;align-items:flex-start;flex-wrap:wrap">
+          <div style="flex:1;min-width:220px">
+            <h3 style="margin:0 0 8px 0">Skill</h3>
+            <div class="skills" aria-hidden="true">
+              <div class="skill"><strong>HTML</strong><div class="bar"><i data-width="95%"></i></div></div>
+              <div class="skill"><strong>CSS</strong><div class="bar"><i data-width="90%"></i></div></div>
+              <div class="skill"><strong>JS/React</strong><div class="bar"><i data-width="78%"></i></div></div>
+              <div class="skill"><strong>UI/Prod</strong><div class="bar"><i data-width="70%"></i></div></div>
+            </div>
+          </div>
+
+          <div style="width:260px">
+            <h3 style="margin:0 0 8px 0">Info Singkat</h3>
+            <div style="background:var(--white);padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.03)">
+              <div style="font-size:13px;color:var(--muted)"><strong>Lokasi:</strong> Bandung, Indonesia</div>
+              <div style="font-size:13px;color:var(--muted)"><strong>Email:</strong> verly@example.com</div>
+              <div style="font-size:13px;color:var(--muted)"><strong>Languages:</strong> ID, EN</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="contact" class="contact" aria-label="Contact">
+      <div>
+        <div style="font-weight:800;font-size:15px">Tertarik bekerja sama?</div>
+        <div style="color:var(--muted);font-size:13px;margin-top:6px">Kirim pesan singkat — saya respons cepat untuk proyek mahasiswa & magang.</div>
+      </div>
+      <div class="cta-links">
+        <a href="mailto:verly@example.com" class="btn btn-primary" style="text-decoration:none;color:inherit">EMAIL</a>
+        <a href="#" class="btn btn-outline" onclick="alert('Ganti tautan ke LinkedIn atau kontak lain')">LINKEDIN</a>
+      </div>
+    </section>
+
+    <footer>
+      © 2025 Verly — Y2K editing theme • CV & demo tersedia atas permintaan
+    </footer>
+  </div>
+
+  <script>
+    // animate skill bars + floating sticker subtle motion
+    document.addEventListener('DOMContentLoaded', ()=> {
+      document.querySelectorAll('.skill .bar i').forEach(el=>{
+        const w = el.getAttribute('data-width') || '60%';
+        requestAnimationFrame(()=> setTimeout(()=> el.style.width = w, 220));
+      });
+
+      // subtle sticker float
+      document.querySelectorAll('.sticker').forEach((s,i)=>{
+        const dur = 4000 + i*800;
+        s.animate([{transform: s.style.transform + ' translateY(0px)'}, {transform: s.style.transform + ' translateY(8px)'}, {transform: s.style.transform + ' translateY(0px)'}], {duration:dur,iterations:Infinity,easing:'ease-in-out'});
+      });
+    });
+
+    function downloadCV(){
+      const link = document.createElement('a');
+      link.href = 'resume.pdf'; // ganti path ke file sebenarnya
+      link.download = 'Verly_CV.pdf';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    }
+  </script>
+</body>
+</html>
